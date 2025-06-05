@@ -48,7 +48,7 @@ int HandleEAGAINPosixSpawn(pid_t* pid, const char* path,
   while (true) {
     int ret = posix_spawn(pid, path, file_actions, attrp, argv, envp);
     if (ret == -1 && errno == EAGAIN)
-      sleep(1);
+      Warning("posix_spawn: retrying after EAGAIN, machine oversubscribed?");
     else
       return ret;
   }
